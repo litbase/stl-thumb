@@ -69,10 +69,18 @@ impl Config {
                     .takes_value(true)
             )
             .arg(
-                clap::Arg::with_name("size")
-                    .help("Size of thumbnail (square)")
-                    .short("s")
-                    .long("size")
+                clap::Arg::with_name("width")
+                    .help("Width of thumbnail")
+                    .short("w")
+                    .long("width")
+                    .takes_value(true)
+                    .required(false)
+            )
+            .arg(
+                clap::Arg::with_name("height")
+                    .help("Height of thumbnail")
+                    .short("h")
+                    .long("height")
                     .takes_value(true)
                     .required(false)
             )
@@ -124,11 +132,11 @@ impl Config {
             },
         };
         matches
-            .value_of("size")
-            .map(|x| c.width = x.parse::<u32>().expect("Invalid size"));
+            .value_of("width")
+            .map(|x| c.width = x.parse::<u32>().expect("Invalid width"));
         matches
-            .value_of("size")
-            .map(|x| c.height = x.parse::<u32>().expect("Invalid size"));
+            .value_of("height")
+            .map(|x| c.height = x.parse::<u32>().expect("Invalid height"));
         c.visible = matches.is_present("visible");
         c.verbosity = matches.occurrences_of("verbosity") as usize;
         match matches.values_of("material") {
